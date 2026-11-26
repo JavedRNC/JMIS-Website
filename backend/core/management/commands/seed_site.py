@@ -46,6 +46,9 @@ class Command(BaseCommand):
             "activities": ("parents", "Activities", "Clubs, sports and events through the year."),
             "newsletter": ("parents", "Newsletter", "Our termly newsletter archive."),
             "parent-app": ("parents", "Parent App", "Track attendance, marks and fees on the Prangan parent app."),
+            "careers": ("about", "Careers", "Work with us — current openings and how to apply."),
+            "registration": ("other", "Registration", "How to apply for admission, the registration fee and the form."),
+            "fees": ("other", "Fees Schedule", "Tuition, admission and other fees by class."),
         }
         for slug, (cat, title, summary) in pages.items():
             models.Page.objects.get_or_create(slug=slug, defaults={
