@@ -144,24 +144,29 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .whatsnew h2{font-size:clamp(1.8rem,4vw,2.7rem);margin-bottom:1rem}
 .whatsnew p{margin-bottom:1rem}
 
-/* ---- numbered cards (Mission/Goals/Team) ---- */
-.trio{background:var(--soft);background-image:radial-gradient(circle at 20% 10%,rgba(10,142,121,.05),transparent 40%)}
-.trio .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem}
-/* card fills teal on hover, text turns white, the corner flag turns yellow (like the reference) */
-.ncard{position:relative;display:block;background:var(--tint);border:1px solid var(--line);border-radius:10px;padding:2.2rem 1.7rem 3.4rem;min-height:210px;overflow:hidden;transition:background .35s ease,transform .25s ease,box-shadow .25s ease}
-.ncard:hover,.ncard.touched{background:var(--teal);transform:translateY(-4px);box-shadow:var(--shadow)}
-.ncard::before{content:"";position:absolute;top:0;left:0;width:0;height:0;border-top:46px solid var(--teal);border-right:46px solid transparent;transition:border-top-color .35s ease}
-.ncard:hover::before,.ncard.touched::before{border-top-color:var(--yellow)}
-.ncard h3{font-size:1.5rem;color:var(--ink);margin-bottom:.5rem;transition:color .35s ease}
-.ncard p{font-size:.95rem;color:var(--muted);max-width:26ch;transition:color .35s ease}
-.ncard .no{position:absolute;right:1.4rem;bottom:1rem;display:flex;align-items:center;gap:.25rem;font-family:var(--display);font-weight:700;font-size:2.3rem;color:var(--teal);line-height:1;transition:color .35s ease}
-.ncard .no svg{width:24px;height:24px}
-.ncard .more{position:absolute;left:1.7rem;bottom:1.5rem;color:var(--teal);font-weight:700;font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;transition:color .35s ease}
-.ncard:hover h3,.ncard:hover p,.ncard:hover .no,.ncard:hover .more,.ncard.touched h3,.ncard.touched p,.ncard.touched .no,.ncard.touched .more{color:#fff}
-/* reveal: slide down from above, staggered one after another */
-.revtop.pre{opacity:0;transform:translateY(-32px)}
-.trio .grid .rev:nth-child(2).in{transition-delay:.12s}
-.trio .grid .rev:nth-child(3).in{transition-delay:.24s}
+/* ---- numbered cards (Mission/Goals/Team), matched to the reference ---- */
+.concrete{background-color:#E6E9EA;background-image:radial-gradient(ellipse at 20% 30%,rgba(255,255,255,.55),transparent 55%),radial-gradient(ellipse at 75% 70%,rgba(255,255,255,.45),transparent 50%),radial-gradient(ellipse at 55% 15%,rgba(0,0,0,.035),transparent 45%)}
+.trio .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.6rem;align-items:start;padding-top:1.4rem}
+/* the wrapper holds the teal flag that sits behind the card and shows at the top and left */
+.nwrap{position:relative;display:block;padding:22px 0 0 22px;color:inherit}
+.nwrap::before{content:"";position:absolute;left:0;top:0;width:100%;height:100%;background:var(--teal);transition:background .35s ease;clip-path:polygon(0 0,44% 0,calc(44% + 14px) 22px,22px 22px,22px 66%,0 calc(66% - 22px))}
+.ncard{position:relative;z-index:1;background:#F1F5FF;min-height:250px;padding:2rem 2.6rem 4.2rem;box-shadow:0 6px 14px rgba(20,30,40,.16);transition:background .35s ease}
+.trio .grid .nwrap:nth-child(2){margin-top:-20px}
+.trio .grid .nwrap:nth-child(2) .ncard{min-height:290px}
+.ncard h3{font-family:"Times New Roman",Times,Georgia,serif;font-weight:400;font-size:2.3rem;color:#222;margin-bottom:1.2rem;transition:color .35s ease}
+.ncard p{font-size:1.05rem;color:#333;max-width:32ch;transition:color .35s ease}
+.ncard .no{position:absolute;right:2.6rem;bottom:2rem;display:flex;align-items:flex-end;font-family:"Times New Roman",Times,Georgia,serif;font-size:2.1rem;line-height:1;color:var(--teal);transition:color .35s ease}
+.ncard .no svg{width:30px;height:30px;margin-right:-9px;color:#C9CED8;transition:color .35s ease}
+/* hover on desktop, tap on a phone: card turns teal, text white, flag yellow */
+.nwrap:hover::before,.nwrap.touched::before{background:var(--yellow)}
+.nwrap:hover .ncard,.nwrap.touched .ncard{background:var(--teal)}
+.nwrap:hover h3,.nwrap:hover p,.nwrap:hover .no,.nwrap.touched h3,.nwrap.touched p,.nwrap.touched .no{color:#fff}
+.nwrap:hover .no svg,.nwrap.touched .no svg{color:rgba(255,255,255,.75)}
+/* reveal: slide down from above, one after another */
+.revtop.pre{opacity:0;transform:translateY(-36px)}
+.trio .grid .rev:nth-child(2).in{transition-delay:.15s}
+.trio .grid .rev:nth-child(3).in{transition-delay:.3s}
+@media (max-width:960px){.trio .grid{grid-template-columns:1fr;max-width:560px;margin-inline:auto}.trio .grid .nwrap:nth-child(2){margin-top:0}.trio .grid .nwrap:nth-child(2) .ncard{min-height:250px}}
 
 /* ---- difference counters ---- */
 .diff{background:linear-gradient(135deg,var(--teal-ink),var(--teal-d));color:#fff;position:relative;overflow:hidden}
@@ -251,12 +256,12 @@ footer{background:var(--paper);border-top:1px solid var(--line)}
   .mnav .wrap{padding-block:.5rem}
   .mnav a{display:block;padding:.7rem .3rem;border-bottom:1px solid var(--line);font-family:var(--display);font-size:.9rem;text-transform:uppercase;letter-spacing:.03em;color:var(--ink)}
   .whatsnew .wrap,.nd .wrap,.contact .wrap{grid-template-columns:1fr}
-  .trio .grid,.exp .grid,.lcards{grid-template-columns:1fr 1fr}
+  .exp .grid,.lcards{grid-template-columns:1fr 1fr}
   .counts{grid-template-columns:repeat(3,1fr);gap:2rem 1rem}
   .qlinks .grid{grid-template-columns:repeat(3,1fr)}
 }
 @media (max-width:560px){
-  .trio .grid,.exp .grid,.lcards,.qlinks .grid{grid-template-columns:1fr 1fr}
+  .exp .grid,.lcards,.qlinks .grid{grid-template-columns:1fr 1fr}
   .counts{grid-template-columns:1fr 1fr}
   .cform .f{grid-template-columns:1fr}
 }
@@ -349,7 +354,7 @@ footer{background:var(--paper);border-top:1px solid var(--line)}
 </div></section>
 
 <!-- what's new -->
-<section class="band whatsnew"><div class="wrap">
+<section class="band whatsnew concrete"><div class="wrap">
   <div class="collage rev">
     <div class="c c1 ph" data-ph="Classroom"></div>
     <div class="c c2 ph" data-ph="Prayer"></div>
@@ -364,11 +369,11 @@ footer{background:var(--paper);border-top:1px solid var(--line)}
 </div></section>
 
 <!-- numbered trio -->
-<section class="band trio"><div class="wrap">
+<section class="band trio concrete"><div class="wrap">
   <div class="grid">
-    <a class="ncard rev revtop" href="#"><h3>Our Mission</h3><p>To provide quality education that unites academic excellence, Islamic values and strong character.</p><span class="more">Learn More →</span><span class="no">01<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 6c-2-1.3-4.3-1.3-6.5 0V17c2.2-1.3 4.5-1.3 6.5 0m0-11c2-1.3 4.3-1.3 6.5 0V17c-2.2-1.3-4.5-1.3-6.5 0m0-11v11"/></svg></span></a>
-    <a class="ncard rev revtop" href="#"><h3>Our Goals</h3><p>Confident, capable students who contribute to society and carry their faith with understanding.</p><span class="more">Learn More →</span><span class="no">02<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 6c-2-1.3-4.3-1.3-6.5 0V17c2.2-1.3 4.5-1.3 6.5 0m0-11c2-1.3 4.3-1.3 6.5 0V17c-2.2-1.3-4.5-1.3-6.5 0m0-11v11"/></svg></span></a>
-    <a class="ncard rev revtop" href="#"><h3>Our Team</h3><p>Qualified, caring teachers and staff devoted to every child's growth, inside and outside the classroom.</p><span class="more">Learn More →</span><span class="no">03<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 6c-2-1.3-4.3-1.3-6.5 0V17c2.2-1.3 4.5-1.3 6.5 0m0-11c2-1.3 4.3-1.3 6.5 0V17c-2.2-1.3-4.5-1.3-6.5 0m0-11v11"/></svg></span></a>
+    <a class="nwrap rev revtop" href="#"><div class="ncard"><h3>Mission</h3><p>Learn more about Crescent's mission and vision</p><span class="no"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M2 5.5c2.6-1.2 5.6-1.2 9.2.5v13.6c-3.6-1.7-6.6-1.7-9.2-.5zM22 5.5c-2.6-1.2-5.6-1.2-9.2.5v13.6c3.6-1.7 6.6-1.7 9.2-.5z"/></svg>01</span></div></a>
+    <a class="nwrap rev revtop" href="#"><div class="ncard"><h3>Goals</h3><p>Find out more about Crescent's goals for your children</p><span class="no"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M2 5.5c2.6-1.2 5.6-1.2 9.2.5v13.6c-3.6-1.7-6.6-1.7-9.2-.5zM22 5.5c-2.6-1.2-5.6-1.2-9.2.5v13.6c3.6-1.7 6.6-1.7 9.2-.5z"/></svg>02</span></div></a>
+    <a class="nwrap rev revtop" href="#"><div class="ncard"><h3>Team</h3><p>Meet the Crescent team</p><span class="no"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M2 5.5c2.6-1.2 5.6-1.2 9.2.5v13.6c-3.6-1.7-6.6-1.7-9.2-.5zM22 5.5c-2.6-1.2-5.6-1.2-9.2.5v13.6c3.6-1.7 6.6-1.7 9.2-.5z"/></svg>03</span></div></a>
   </div>
 </div></section>
 
@@ -503,7 +508,7 @@ footer{background:var(--paper);border-top:1px solid var(--line)}
   document.addEventListener('click',function(e){var a=e.target.closest('a[href="#"]');if(a)e.preventDefault();});
 
   // Mission/Goals/Team cards: on a phone there's no hover, so a tap shows the teal state
-  var cards=[].slice.call(document.querySelectorAll('.trio .ncard'));
+  var cards=[].slice.call(document.querySelectorAll('.trio .nwrap'));
   cards.forEach(function(c){c.addEventListener('click',function(){var on=c.classList.contains('touched');cards.forEach(function(x){x.classList.remove('touched')});if(!on)c.classList.add('touched');});});
 
   // forms (static preview)
