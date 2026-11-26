@@ -52,6 +52,7 @@ img{max-width:100%}
 .btn-teal{background:var(--teal);color:#fff}.btn-teal:hover{background:var(--teal-d)}
 .btn-ghost{background:transparent;border-color:#fff;color:#fff}.btn-ghost:hover{background:#fff;color:var(--teal-ink)}
 .btn-out{background:transparent;border-color:var(--teal);color:var(--teal)}.btn-out:hover{background:var(--teal);color:#fff}
+.btn-gold{background:var(--yellow);color:#231a00}.btn-gold:hover{filter:brightness(.94)}
 :focus-visible{outline:3px solid var(--teal);outline-offset:2px}
 
 /* photo placeholders (real photos drop in from admin) */
@@ -72,8 +73,10 @@ img{max-width:100%}
 /* ---- header ---- */
 .head{position:sticky;top:env(safe-area-inset-top,0px);z-index:40;background:var(--paper);border-bottom:1px solid var(--line);box-shadow:0 2px 10px rgba(0,0,0,.03)}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:50;background:var(--paper)}
-.nav{display:flex;align-items:center;gap:.3rem;padding-block:.4rem;min-height:72px}
-.nav .logo{width:76px;height:76px;flex:none;margin:-14px 1.2rem 0;filter:drop-shadow(0 6px 10px rgba(0,0,0,.12))}
+.nav{display:flex;align-items:center;gap:.3rem;padding-block:.5rem;min-height:64px}
+.brand{display:flex;align-items:center;gap:.7rem;margin-right:auto;text-decoration:none}
+.brand .bn{font-family:var(--display);font-weight:700;font-size:1.15rem;color:var(--ink);letter-spacing:-.01em}
+.nav .logo{width:52px;height:52px;flex:none;filter:drop-shadow(0 4px 8px rgba(0,0,0,.1))}
 .nav ul{display:flex;align-items:center;gap:.1rem;list-style:none;margin:0;padding:0}
 .nav .left{margin-right:auto}.nav .right{margin-left:auto}
 .nav .top{display:inline-flex;align-items:center;gap:.3rem;padding:.5rem .7rem;font-family:var(--display);font-weight:500;font-size:.88rem;letter-spacing:.03em;text-transform:uppercase;color:var(--ink);background:none;border:none;cursor:pointer}
@@ -89,30 +92,34 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .mnav{display:none}
 
 /* ---- hero (Slider Revolution style) ---- */
-.hero{position:relative;overflow:hidden;color:#fff;min-height:min(82vh,660px);margin-top:calc(-1 * env(safe-area-inset-top,0px))}
-.hero .slide{position:absolute;inset:0;opacity:0;transition:opacity 1.1s ease;pointer-events:none}
-.hero .slide.on{opacity:1;z-index:1;pointer-events:auto}
-.hero .slide .bg{position:absolute;inset:0;transform:scale(1.12);transition:transform 8s ease}
-.hero .slide.on .bg{transform:scale(1)}
-.hero .slide .bg.p1{background:linear-gradient(120deg,#0b4f44,#0a8e79 55%,#0e6b5c)}
-.hero .slide .bg.p2{background:linear-gradient(125deg,#06302a,#0e5f52 55%,#14b89b)}
-.hero .slide .bg.p3{background:linear-gradient(130deg,#12a58c,#0b4f44 72%)}
-/* teal diagonal overlay like Iqra */
-.hero .veil{position:absolute;inset:0;background:linear-gradient(105deg,rgba(10,83,71,.82) 0%,rgba(10,83,71,.5) 42%,rgba(10,142,121,.12) 62%,transparent 80%)}
-.hero .veil::after{content:"";position:absolute;top:0;bottom:0;left:52%;width:40%;background:linear-gradient(105deg,var(--teal) 0%,rgba(10,142,121,.0) 70%);opacity:.5;transform:skewX(-12deg)}
-.hero-inner{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;justify-content:center;padding-top:calc(env(safe-area-inset-top,0px) + 2rem);padding-bottom:3.4rem}
-.hero .ar{font-size:clamp(1.1rem,2.6vw,1.7rem);margin-bottom:.8rem}
-.hero h1{color:#fff;font-size:clamp(2.4rem,6.6vw,4.7rem);font-weight:700;letter-spacing:-.01em;text-wrap:balance;max-width:16ch}
-.hero .sub{margin:1.2rem 0 1.8rem;font-size:1.15rem;max-width:42ch}
-.hero .cta{display:flex;gap:.8rem;flex-wrap:wrap}
-/* each slide's text slides up when its slide becomes active — replays on every cycle */
-.hero .slide .hero-inner>*{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
-.hero .slide.on .hero-inner>*{opacity:1;transform:none}
-.hero .slide.on .ar{transition-delay:.2s}.hero .slide.on h1{transition-delay:.35s}
-.hero .slide.on .sub{transition-delay:.5s}.hero .slide.on .cta{transition-delay:.65s}
-.hero .dots{position:absolute;left:0;right:0;bottom:1.3rem;z-index:3;display:flex;gap:.5rem;justify-content:center}
-.hero .dots button{width:34px;height:5px;border:none;border-radius:3px;background:rgba(255,255,255,.4);cursor:pointer;padding:0}
-.hero .dots button[aria-current="true"]{background:#fff}
+.hero{position:relative;overflow:hidden;color:#fff;min-height:min(88vh,700px);margin-top:calc(-1 * env(safe-area-inset-top,0px))}
+.hero>.bg{position:absolute;inset:0;background:linear-gradient(120deg,#0b4f44,#0a8e79 55%,#0e6b5c)}
+.hero .veil{position:absolute;inset:0;background:linear-gradient(105deg,rgba(10,83,71,.9) 0%,rgba(10,83,71,.62) 46%,rgba(10,142,121,.18) 72%,rgba(10,83,71,.45) 100%)}
+.hero .veil::after{content:"";position:absolute;inset:0;background:radial-gradient(55% 75% at 82% 30%,rgba(20,184,155,.4),transparent 70%)}
+.hero-inner{position:relative;z-index:2;height:100%;display:grid;grid-template-columns:1.02fr .98fr;gap:clamp(1.5rem,4vw,3.5rem);align-items:center;padding-top:calc(env(safe-area-inset-top,0px) + 2.5rem);padding-bottom:3rem}
+.hero-left{min-width:0}
+.hero .ar{font-size:clamp(1.05rem,2.4vw,1.55rem);margin-bottom:.8rem;opacity:0;transform:translateY(20px);animation:hrise .7s .2s forwards}
+.hero h1{color:#fff;font-size:clamp(2.2rem,5vw,3.9rem);font-weight:700;letter-spacing:-.01em;text-wrap:balance;max-width:15ch;opacity:0;transform:translateY(20px);animation:hrise .7s .35s forwards}
+.hero .sub{margin:1.1rem 0 1.7rem;font-size:1.06rem;max-width:42ch;opacity:0;transform:translateY(20px);animation:hrise .7s .5s forwards}
+.hero .cta{display:flex;gap:.8rem;flex-wrap:wrap;opacity:0;transform:translateY(20px);animation:hrise .7s .65s forwards}
+@keyframes hrise{to{opacity:1;transform:none}}
+/* right: interactive animated menu boxes */
+.hero-right{display:grid;grid-template-columns:1fr 1fr;gap:clamp(.7rem,1.5vw,1.1rem);min-width:0}
+.hbox{position:relative;aspect-ratio:1/1;border-radius:18px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.28);backdrop-filter:blur(8px);display:flex;flex-direction:column;justify-content:flex-end;gap:.35rem;padding:clamp(1rem,2vw,1.5rem);color:#fff;overflow:hidden;cursor:pointer;opacity:0;transform:translateY(26px) scale(.96);animation:hrise .6s forwards;transition:transform .35s ease,background .35s ease,box-shadow .35s ease}
+.hero-right .hbox:nth-child(1){animation-delay:.55s}.hero-right .hbox:nth-child(2){animation-delay:.68s}
+.hero-right .hbox:nth-child(3){animation-delay:.81s}.hero-right .hbox:nth-child(4){animation-delay:.94s}
+.hbox::before{content:"";position:absolute;inset:0;background:linear-gradient(120deg,transparent 32%,rgba(255,255,255,.22) 50%,transparent 68%);transform:translateX(-130%)}
+.hbox:hover,.hbox.tap{transform:translateY(-7px);background:#fff;box-shadow:0 24px 44px -18px rgba(0,0,0,.55)}
+.hbox:hover::before{animation:hshine .85s ease}
+@keyframes hshine{to{transform:translateX(130%)}}
+.hbox .ic{width:clamp(34px,4vw,46px);height:clamp(34px,4vw,46px);color:#fff;transition:color .35s ease,transform .35s ease}
+.hbox .ic svg{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.hbox:hover .ic,.hbox.tap .ic{color:var(--teal);transform:translateY(-3px)}
+.hbox h3{font-size:clamp(1rem,1.8vw,1.3rem);color:#fff;font-weight:700;transition:color .35s ease}
+.hbox small{font-size:.76rem;color:rgba(255,255,255,.82);transition:color .35s ease}
+.hbox:hover h3,.hbox.tap h3{color:var(--teal-ink)}.hbox:hover small,.hbox.tap small{color:var(--muted)}
+.hbox .arrow{position:absolute;top:clamp(.9rem,2vw,1.25rem);right:clamp(.9rem,2vw,1.25rem);width:20px;height:20px;color:#fff;opacity:.55;transform:translate(-4px,4px);transition:.35s}
+.hbox:hover .arrow,.hbox.tap .arrow{opacity:1;transform:none;color:var(--teal)}
 
 /* ---- events & notices band ---- */
 .events{background:var(--soft)}
@@ -247,12 +254,13 @@ footer{background:var(--paper);border-top:1px solid var(--line)}
 
 /* ---- responsive ---- */
 @media (max-width:960px){
-  .nav .left,.nav .right{display:none}
-  .nav .logo{margin:0 auto 0 0}
   .hamb{display:grid;place-items:center}
   .mnav.open{display:block;border-top:1px solid var(--line)}
   .mnav .wrap{padding-block:.5rem}
   .mnav a{display:block;padding:.7rem .3rem;border-bottom:1px solid var(--line);font-family:var(--display);font-size:.9rem;text-transform:uppercase;letter-spacing:.03em;color:var(--ink)}
+  .hero{min-height:0}
+  .hero-inner{grid-template-columns:1fr;gap:2rem;padding-top:calc(env(safe-area-inset-top,0px) + 1.8rem);padding-bottom:2.4rem}
+  .hero h1{font-size:clamp(2rem,8vw,2.8rem)}
   .whatsnew .wrap,.nd .wrap,.contact .wrap{grid-template-columns:1fr}
   .exp .grid,.lcards{grid-template-columns:1fr 1fr}
   .counts{grid-template-columns:repeat(3,1fr);gap:2rem 1rem}
@@ -274,58 +282,51 @@ footer{background:var(--paper);border-top:1px solid var(--line)}
 
 <!-- header -->
 <header class="head"><div class="wrap nav">
-  <ul class="left">
-    <li><a class="top" href="#top">Home</a></li>
-    <li><button class="top">About Us ▾</button><div class="drop"><a href="#">Education Society</a><a href="#">Principal's Message</a><a href="#">History</a><a href="#">Vision / Mission</a><a href="#">Board of Directors</a><a href="#">Careers</a><a href="#">School Policies</a></div></li>
-    <li><button class="top">Parents ▾</button><div class="drop"><a href="#">Supplies List</a><a href="#">Calendar</a><a href="#">Activities</a><a href="#">Newsletter</a><a href="#">Parent App</a></div></li>
-    <li><button class="top">Registration ▾</button><div class="drop"><a href="#">Registration</a><a href="#">Fees Schedule</a></div></li>
-    <li><a class="top" href="#donate">Donate</a></li>
-    <li><a class="top" href="#donate">Zakat</a></li>
-  </ul>
-  <svg class="logo" viewBox="0 0 100 100" aria-label="School logo"><circle cx="50" cy="50" r="48" fill="#fff" stroke="#0A8E79" stroke-width="2"/><circle cx="50" cy="50" r="40" fill="#0A5347"/><path d="M50 24 L56 42 L75 42 L60 53 L66 72 L50 60 L34 72 L40 53 L25 42 L44 42 Z" fill="#F5B301"/><text x="50" y="86" text-anchor="middle" font-size="8" fill="#fff" font-family="Ubuntu">CRESCENT</text></svg>
-  <ul class="right">
-    <li><a class="top" href="#">Alumni</a></li>
-    <li><a class="top yellow" href="#">Parent App</a></li>
-    <li><a class="top" href="#contact">Contact</a></li>
-  </ul>
+  <a class="brand" href="#top" aria-label="Crescent School home">
+    <svg class="logo" viewBox="0 0 100 100"><circle cx="50" cy="50" r="48" fill="#fff" stroke="#0A8E79" stroke-width="2"/><circle cx="50" cy="50" r="40" fill="#0A5347"/><path d="M50 24 L56 42 L75 42 L60 53 L66 72 L50 60 L34 72 L40 53 L25 42 L44 42 Z" fill="#F5B301"/></svg>
+    <span class="bn">Crescent School</span>
+  </a>
   <button class="hamb" id="hamb" aria-label="Menu" aria-expanded="false">☰</button>
 </div>
 <nav class="mnav" id="mnav"><div class="wrap">
-  <a href="#top">Home</a><a href="#">About Us</a><a href="#">Parents</a><a href="#">Registration</a><a href="#donate">Donate</a><a href="#donate">Zakat</a><a href="#contact">Contact</a>
+  <a href="#about">About Us</a><a href="#gallery">Gallery</a><a href="#society">Our Society</a><a href="#donate">Donate</a><a href="#contact">Contact</a>
 </div></nav>
 </header>
 
 <a id="top"></a>
 <!-- hero -->
 <section class="hero" id="hero">
-  <div class="slide on">
-    <div class="bg p1"></div><div class="veil"></div>
-    <div class="wrap hero-inner">
+  <div class="bg"></div><div class="veil"></div>
+  <div class="wrap hero-inner">
+    <div class="hero-left">
       <div class="ar">السَّلَامُ عَلَيْكُمْ وَرَحْمَةُ اللهِ وَبَرَكَاتُهُ</div>
       <h1>Welcome to Crescent School</h1>
       <p class="sub">Knowledge, character and community — modern academics alongside Islamic studies and Arabic, from nursery to senior secondary.</p>
-      <div class="cta"><a class="btn btn-teal" href="#">Apply for Admission</a><a class="btn btn-ghost" href="#">Take a Tour</a></div>
+      <div class="cta"><a class="btn btn-gold" href="#">Apply for Admission</a><a class="btn btn-ghost" href="#">Take a Tour</a></div>
     </div>
+    <nav class="hero-right" aria-label="Main sections">
+      <a class="hbox" href="#about">
+        <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+        <span class="ic"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="18"/><path d="M24 22v10"/><circle cx="24" cy="16" r="1.4" fill="currentColor"/></svg></span>
+        <h3>About Us</h3><small>Who we are</small>
+      </a>
+      <a class="hbox" href="#gallery">
+        <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+        <span class="ic"><svg viewBox="0 0 48 48"><rect x="7" y="11" width="34" height="26" rx="3"/><circle cx="17" cy="20" r="3"/><path d="M7 32l9-8 7 6 8-7 10 9"/></svg></span>
+        <h3>Gallery</h3><small>Campus life</small>
+      </a>
+      <a class="hbox" href="#society">
+        <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+        <span class="ic"><svg viewBox="0 0 48 48"><circle cx="17" cy="18" r="5"/><circle cx="31" cy="18" r="5"/><path d="M8 38c0-6 4-10 9-10s9 4 9 10M22 38c0-6 4-10 9-10s9 4 9 10"/></svg></span>
+        <h3>Our Society</h3><small>Who runs the school</small>
+      </a>
+      <a class="hbox" href="#donate">
+        <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+        <span class="ic"><svg viewBox="0 0 48 48"><path d="M24 40S8 30 8 19a8 8 0 0 1 16-3 8 8 0 0 1 16 3c0 11-16 21-16 21z"/></svg></span>
+        <h3>Donate</h3><small>Support a child</small>
+      </a>
+    </nav>
   </div>
-  <div class="slide">
-    <div class="bg p2"></div><div class="veil"></div>
-    <div class="wrap hero-inner">
-      <div class="ar">Admissions 2026–27</div>
-      <h1>Admissions are now open</h1>
-      <p class="sub">Limited seats in every class, from nursery to senior secondary. Begin your child's journey with us.</p>
-      <div class="cta"><a class="btn btn-teal" href="#">Apply Now</a><a class="btn btn-ghost" href="#">Fee Structure</a></div>
-    </div>
-  </div>
-  <div class="slide">
-    <div class="bg p3"></div><div class="veil"></div>
-    <div class="wrap hero-inner">
-      <div class="ar">Faith · Knowledge · Character</div>
-      <h1>Rooted in faith and knowledge</h1>
-      <p class="sub">Islamic studies and Arabic taught with warmth, alongside a strong modern curriculum.</p>
-      <div class="cta"><a class="btn btn-teal" href="#">Our Approach</a><a class="btn btn-ghost" href="#">Take a Tour</a></div>
-    </div>
-  </div>
-  <div class="dots" id="dots"><button aria-current="true" aria-label="Slide 1"></button><button aria-label="Slide 2"></button><button aria-label="Slide 3"></button></div>
 </section>
 
 <!-- events & notices -->
@@ -474,13 +475,10 @@ footer{background:var(--paper);border-top:1px solid var(--line)}
   hamb.onclick=function(){var o=mn.classList.toggle('open');hamb.setAttribute('aria-expanded',o)};
   mn.onclick=function(e){if(e.target.tagName==='A'){mn.classList.remove('open');hamb.setAttribute('aria-expanded',false)}};
 
-  // hero slider
-  var slides=[].slice.call(document.querySelectorAll('.hero .slide')),
-      dots=[].slice.call(document.querySelectorAll('#dots button')),i=0,t;
-  function go(n){i=(n+slides.length)%slides.length;slides.forEach(function(s,k){s.classList.toggle('on',k===i)});dots.forEach(function(d,k){d.setAttribute('aria-current',k===i?'true':'false')})}
-  dots.forEach(function(d,k){d.onclick=function(){go(k);rs()}});
-  function rs(){clearInterval(t);if(!reduce)t=setInterval(function(){go(i+1)},6000)}
-  rs();
+  // hero menu boxes: on a phone (no hover) a tap shows the filled state briefly before it would open the page
+  [].slice.call(document.querySelectorAll('.hero-right .hbox')).forEach(function(bx){
+    bx.addEventListener('click',function(e){e.preventDefault();bx.classList.add('tap');setTimeout(function(){bx.classList.remove('tap')},900);});
+  });
 
   // scroll reveal — only hide what's below the fold, reveal on scroll, and never leave anything hidden
   var revs=[].slice.call(document.querySelectorAll('.rev'));
