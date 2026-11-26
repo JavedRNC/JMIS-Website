@@ -92,11 +92,12 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .mnav{display:none}
 
 /* ---- hero (Slider Revolution style) ---- */
-.hero{position:relative;overflow:hidden;color:#fff;min-height:min(88vh,700px);margin-top:calc(-1 * env(safe-area-inset-top,0px))}
+/* hero fills exactly one screen (viewport minus the top bar + header); JS sets the exact height, this is the fallback */
+.hero{position:relative;overflow:hidden;color:#fff;height:calc(100svh - 104px);min-height:430px;margin-top:calc(-1 * env(safe-area-inset-top,0px));display:flex;flex-direction:column}
 .hero>.bg{position:absolute;inset:0;background:linear-gradient(120deg,#0b4f44,#0a8e79 55%,#0e6b5c)}
 .hero .veil{position:absolute;inset:0;background:linear-gradient(105deg,rgba(10,83,71,.9) 0%,rgba(10,83,71,.62) 46%,rgba(10,142,121,.18) 72%,rgba(10,83,71,.45) 100%)}
 .hero .veil::after{content:"";position:absolute;inset:0;background:radial-gradient(55% 75% at 82% 30%,rgba(20,184,155,.4),transparent 70%)}
-.hero-inner{position:relative;z-index:2;height:100%;display:grid;grid-template-columns:1.02fr .98fr;gap:clamp(1.5rem,4vw,3.5rem);align-items:center;padding-top:calc(env(safe-area-inset-top,0px) + 2.5rem);padding-bottom:3rem}
+.hero-inner{position:relative;z-index:2;flex:1 1 auto;min-height:0;display:grid;grid-template-columns:1.02fr .98fr;gap:clamp(1.5rem,4vw,3.5rem);align-items:center;padding-top:calc(env(safe-area-inset-top,0px) + 2rem);padding-bottom:2.2rem}
 .hero-left{min-width:0}
 .hero .ar{font-size:clamp(1.05rem,2.4vw,1.55rem);margin-bottom:.8rem;opacity:0;transform:translateY(20px);animation:hrise .7s .2s forwards}
 .hero h1{color:#fff;font-size:clamp(2.2rem,5vw,3.9rem);font-weight:700;letter-spacing:-.01em;text-wrap:balance;max-width:15ch;opacity:0;transform:translateY(20px);animation:hrise .7s .35s forwards}
@@ -258,9 +259,18 @@ footer{background:var(--paper);border-top:1px solid var(--line)}
   .mnav.open{display:block;border-top:1px solid var(--line)}
   .mnav .wrap{padding-block:.5rem}
   .mnav a{display:block;padding:.7rem .3rem;border-bottom:1px solid var(--line);font-family:var(--display);font-size:.9rem;text-transform:uppercase;letter-spacing:.03em;color:var(--ink)}
-  .hero{min-height:0}
-  .hero-inner{grid-template-columns:1fr;gap:2rem;padding-top:calc(env(safe-area-inset-top,0px) + 1.8rem);padding-bottom:2.4rem}
-  .hero h1{font-size:clamp(2rem,8vw,2.8rem)}
+  .hero{height:calc(100svh - 92px)}
+  .hero-inner{display:flex;flex-direction:column;justify-content:center;gap:clamp(.8rem,3vw,1.4rem);padding-top:calc(env(safe-area-inset-top,0px) + 1.1rem);padding-bottom:1.3rem}
+  .hero-left{flex:0 0 auto}
+  .hero h1{font-size:clamp(1.9rem,7.2vw,2.6rem)}
+  .hero .ar{font-size:clamp(1rem,4.5vw,1.3rem);margin-bottom:.5rem}
+  .hero .sub{margin:.7rem 0 1rem;font-size:.96rem}
+  .hero .cta{gap:.6rem}
+  .hero-right{flex:1 1 auto;min-height:0;grid-template-rows:1fr 1fr;gap:.7rem}
+  .hbox{aspect-ratio:auto;min-height:0;border-radius:14px;padding:.85rem 1rem}
+  .hbox .ic{width:30px;height:30px}
+  .hbox h3{font-size:1.05rem}.hbox small{font-size:.72rem}
+  .hbox .arrow{width:17px;height:17px}
   .whatsnew .wrap,.nd .wrap,.contact .wrap{grid-template-columns:1fr}
   .exp .grid,.lcards{grid-template-columns:1fr 1fr}
   .counts{grid-template-columns:repeat(3,1fr);gap:2rem 1rem}
@@ -271,7 +281,9 @@ footer{background:var(--paper);border-top:1px solid var(--line)}
   .counts{grid-template-columns:1fr 1fr}
   .cform .f{grid-template-columns:1fr}
 }
-@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.hero .slide .bg{transform:none!important}}
+/* very short screens (small phones, landscape): drop the greeting + subtitle so the boxes still fit in one screen */
+@media (max-width:960px) and (max-height:700px){.hero .ar,.hero .sub{display:none}.hero .cta{margin-top:.3rem}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 
 <!-- top social strip -->
@@ -470,6 +482,20 @@ footer{background:var(--paper);border-top:1px solid var(--line)}
 <script>
 (function(){
   var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+  // keep the hero exactly one screen tall — its bottom meets the visible bottom, so nothing scrolls to reveal it
+  var hero=document.querySelector('.hero');
+  function fitHero(){
+    if(!hero)return;
+    var tb=document.querySelector('.topbar'),hd=document.querySelector('.head');
+    var chrome=(tb?tb.offsetHeight:0)+(hd?hd.offsetHeight:0);
+    hero.style.height=Math.max(430,window.innerHeight-chrome)+'px';
+  }
+  fitHero();
+  addEventListener('resize',fitHero);
+  addEventListener('orientationchange',fitHero);
+  if(window.visualViewport)visualViewport.addEventListener('resize',fitHero);
+
   // mobile menu
   var hamb=document.getElementById('hamb'),mn=document.getElementById('mnav');
   hamb.onclick=function(){var o=mn.classList.toggle('open');hamb.setAttribute('aria-expanded',o)};
