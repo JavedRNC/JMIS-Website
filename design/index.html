@@ -6,6 +6,7 @@
 /* Faithful clone of the iqraschool.com layout & motion — white ground, teal accent, Ubuntu headings / Karla body.
    Colours and content are placeholders, editable from the admin panel. */
 :root{
+  font-size:15px;   /* base scale matched to the reference (its root is 15px); every rem follows from here */
   --teal:#0A8E79; --teal-d:#077A67; --teal-ink:#0A5347;
   --yellow:#F5B301;
   --ink:#242424; --body:#3E3E3E; --muted:#767676; --line:#E6E8E8;
@@ -14,7 +15,7 @@
   --display:"Ubuntu",Arial,Helvetica,sans-serif;
   --text:"Karla",Arial,Helvetica,sans-serif;
   --shadow:0 2px 6px rgba(20,40,34,.06),0 18px 40px -24px rgba(20,40,34,.22);
-  --maxw:1180px;
+  --maxw:1255px;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
   --ink:#F1F4F3; --body:#C9D2CF; --muted:#93A09B; --line:#243330;
@@ -32,7 +33,7 @@
   color-scheme:dark;
 }
 *{box-sizing:border-box}
-body{margin:0;background:var(--paper);color:var(--body);font-family:var(--text);font-size:16px;line-height:1.7}
+body{margin:0;background:var(--paper);color:var(--body);font-family:var(--text);font-size:15px;line-height:1.7}
 h1,h2,h3,h4{font-family:var(--display);color:var(--ink);line-height:1.15;margin:0;font-weight:700}
 a{color:inherit;text-decoration:none}
 img{max-width:100%}
@@ -44,7 +45,7 @@ img{max-width:100%}
 .shead{margin-bottom:2.6rem}
 .shead.center{margin-inline:auto;max-width:720px}
 .shead .k{font-family:var(--text);font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);font-size:.8rem}
-.shead h2{font-size:clamp(1.8rem,4vw,2.7rem);margin:.5rem 0 0}
+.shead h2{font-size:clamp(1.7rem,3.3vw,2.4rem);margin:.5rem 0 0}
 .shead .rule{width:64px;height:3px;background:var(--teal);border-radius:3px;margin-top:1rem}
 .shead.center .rule{margin-inline:auto}
 .btn{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--display);font-weight:500;font-size:.86rem;letter-spacing:.06em;text-transform:uppercase;padding:.85rem 1.6rem;border-radius:4px;cursor:pointer;border:2px solid transparent;transition:.2s}
@@ -75,7 +76,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .nav .logo{width:76px;height:76px;flex:none;margin:-14px 1.2rem 0;filter:drop-shadow(0 6px 10px rgba(0,0,0,.12))}
 .nav ul{display:flex;align-items:center;gap:.1rem;list-style:none;margin:0;padding:0}
 .nav .left{margin-right:auto}.nav .right{margin-left:auto}
-.nav .top{display:inline-flex;align-items:center;gap:.3rem;padding:.5rem .7rem;font-family:var(--display);font-weight:500;font-size:.82rem;letter-spacing:.03em;text-transform:uppercase;color:var(--ink);background:none;border:none;cursor:pointer}
+.nav .top{display:inline-flex;align-items:center;gap:.3rem;padding:.5rem .7rem;font-family:var(--display);font-weight:500;font-size:.88rem;letter-spacing:.03em;text-transform:uppercase;color:var(--ink);background:none;border:none;cursor:pointer}
 .nav .top:hover{color:var(--teal)}
 .nav li{position:relative}
 .nav .yellow{background:var(--yellow);color:#231a00;border-radius:4px;padding:.6rem 1rem}
@@ -141,7 +142,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .collage .c1{inset:0 22% 26% 0}
 .collage .c2{width:46%;aspect-ratio:1;right:4%;top:2%}
 .collage .c3{width:42%;aspect-ratio:1;right:16%;bottom:2%;border-color:var(--teal)}
-.whatsnew h2{font-size:clamp(1.8rem,4vw,2.7rem);margin-bottom:1rem}
+.whatsnew h2{font-size:clamp(1.7rem,3.3vw,2.4rem);margin-bottom:1rem}
 .whatsnew p{margin-bottom:1rem}
 
 /* ---- numbered cards (Mission/Goals/Team), matched to the reference ---- */
@@ -153,7 +154,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .ncard{position:relative;z-index:1;background:#F1F5FF;min-height:250px;padding:2rem 2.6rem 4.2rem;box-shadow:0 6px 14px rgba(20,30,40,.16);transition:background .35s ease}
 .trio .grid .nwrap:nth-child(2){margin-top:-20px}
 .trio .grid .nwrap:nth-child(2) .ncard{min-height:290px}
-.ncard h3{font-family:"Times New Roman",Times,Georgia,serif;font-weight:400;font-size:2.3rem;color:#222;margin-bottom:1.2rem;transition:color .35s ease}
+.ncard h3{font-family:"Times New Roman",Times,Georgia,serif;font-weight:400;font-size:2rem;color:#222;margin-bottom:1.2rem;transition:color .35s ease}
 .ncard p{font-size:1.05rem;color:#333;max-width:32ch;transition:color .35s ease}
 .ncard .no{position:absolute;right:2.6rem;bottom:2rem;display:flex;align-items:flex-end;font-family:"Times New Roman",Times,Georgia,serif;font-size:2.1rem;line-height:1;color:var(--teal);transition:color .35s ease}
 .ncard .no svg{width:30px;height:30px;margin-right:-9px;color:#C9CED8;transition:color .35s ease}
@@ -173,7 +174,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .counts{display:grid;grid-template-columns:repeat(3,1fr);gap:2.8rem 1.5rem;text-align:center}
 .count .ic{width:60px;height:60px;margin:0 auto .7rem;color:var(--body)}
 .count .ic svg{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round}
-.count .n{font-family:var(--display);font-weight:700;font-size:clamp(2rem,4.5vw,3rem);line-height:1;color:var(--ink);font-variant-numeric:tabular-nums}
+.count .n{font-family:var(--display);font-weight:700;font-size:clamp(1.9rem,3.8vw,2.4rem);line-height:1;color:var(--ink);font-variant-numeric:tabular-nums}
 .count .l{font-size:.9rem;color:var(--muted);margin-top:.4rem}
 
 /* ---- experience photo tiles ---- */
