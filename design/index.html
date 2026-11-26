@@ -113,16 +113,26 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .hero .dots button{width:34px;height:5px;border:none;border-radius:3px;background:rgba(255,255,255,.4);cursor:pointer;padding:0}
 .hero .dots button[aria-current="true"]{background:#fff}
 
-/* ---- events strip ---- */
+/* ---- events & notices band ---- */
 .events{background:var(--soft)}
-.events .wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.events .top{display:flex;justify-content:space-between;align-items:flex-end;gap:1rem;flex-wrap:wrap;margin-bottom:1.8rem}
+.events .btns{display:flex;gap:.6rem;flex-wrap:wrap}
+.events .layout{display:grid;grid-template-columns:1fr 320px;gap:1.6rem;align-items:start}
+.evlist{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden}
 .ev{background:var(--paper);padding:1.3rem 1.2rem;display:flex;gap:.9rem;align-items:flex-start;transition:.2s}
 .ev:hover{background:var(--tint)}
-.ev .dt{flex:none;width:52px;text-align:center;border-radius:7px;overflow:hidden;border:1px solid var(--line)}
-.ev .dt .mo{background:var(--teal);color:#fff;font-size:.62rem;text-transform:uppercase;letter-spacing:.06em;padding:.2rem}
-.ev .dt .dy{font-family:var(--display);font-weight:700;color:var(--ink);padding:.2rem 0;font-size:1.25rem}
-.ev h4{font-size:.98rem;margin:0 0 .15rem}
+.ev .dt{flex:none;width:56px;text-align:center;border-radius:8px;overflow:hidden;border:1px solid var(--line)}
+.ev .dt .mo{background:var(--teal);color:#fff;font-size:.62rem;text-transform:uppercase;letter-spacing:.06em;padding:.22rem}
+.ev .dt .dy{font-family:var(--display);font-weight:700;color:var(--ink);padding:.25rem 0;font-size:1.35rem}
+.ev h4{font-size:1rem;margin:0 0 .2rem}
 .ev small{color:var(--muted)}
+.docs{background:var(--paper);border:1px solid var(--line);border-top:3px solid var(--teal);border-radius:10px;padding:1.3rem}
+.docs h4{font-size:1.05rem;margin-bottom:.8rem}
+.docs a{display:flex;align-items:center;gap:.7rem;padding:.6rem .1rem;border-bottom:1px solid var(--line);font-size:.9rem;color:var(--body)}
+.docs a:last-child{border-bottom:none}.docs a:hover{color:var(--teal)}
+.docs .pdf{flex:none;width:30px;height:30px;display:grid;place-items:center;background:var(--tint);color:var(--teal);border-radius:6px;font-size:.6rem;font-weight:700}
+@media (max-width:860px){.events .layout{grid-template-columns:1fr}}
+@media (max-width:520px){.evlist{grid-template-columns:1fr}}
 
 /* ---- what's new + circles ---- */
 .whatsnew .wrap{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,5vw,4rem);align-items:center}
@@ -308,12 +318,27 @@ footer{background:var(--paper);border-top:1px solid var(--line)}
   <div class="dots" id="dots"><button aria-current="true" aria-label="Slide 1"></button><button aria-label="Slide 2"></button><button aria-label="Slide 3"></button></div>
 </section>
 
-<!-- events strip -->
-<section class="events"><div class="wrap">
-  <div class="ev"><div class="dt"><div class="mo">Dec</div><div class="dy">20</div></div><div><h4>Winter Break Begins</h4><small>School closed · reopens Jan 5</small></div></div>
-  <div class="ev"><div class="dt"><div class="mo">Dec</div><div class="dy">12</div></div><div><h4>Inter-house Math Competition</h4><small>Senior block · 10:00 AM</small></div></div>
-  <div class="ev"><div class="dt"><div class="mo">Dec</div><div class="dy">06</div></div><div><h4>Islamic Book Fair</h4><small>School library</small></div></div>
-  <div class="ev"><div class="dt"><div class="mo">Nov</div><div class="dy">30</div></div><div><h4>Annual Sports Day</h4><small>School ground · parents invited</small></div></div>
+<!-- events & notices -->
+<section class="band events" id="events"><div class="wrap">
+  <div class="top rev">
+    <div class="shead" style="margin:0"><div class="k">Events &amp; Notices</div><h2>What's happening on campus</h2><div class="rule"></div></div>
+    <div class="btns"><a class="btn btn-out" href="#">Upcoming Events</a><a class="btn btn-out" href="#">Past Events</a></div>
+  </div>
+  <div class="layout rev">
+    <div class="evlist">
+      <div class="ev"><div class="dt"><div class="mo">Dec</div><div class="dy">20</div></div><div><h4>Winter Break Begins</h4><small>School closed · reopens Jan 5</small></div></div>
+      <div class="ev"><div class="dt"><div class="mo">Dec</div><div class="dy">12</div></div><div><h4>Inter-house Math Competition</h4><small>Senior block · 10:00 AM</small></div></div>
+      <div class="ev"><div class="dt"><div class="mo">Dec</div><div class="dy">06</div></div><div><h4>Islamic Book Fair</h4><small>School library</small></div></div>
+      <div class="ev"><div class="dt"><div class="mo">Nov</div><div class="dy">30</div></div><div><h4>Annual Sports Day</h4><small>School ground · parents invited</small></div></div>
+    </div>
+    <div class="docs">
+      <h4>Downloads &amp; Notices</h4>
+      <a href="#"><span class="pdf">PDF</span> School Prospectus 2026–27</a>
+      <a href="#"><span class="pdf">PDF</span> Admission Form</a>
+      <a href="#"><span class="pdf">PDF</span> Fee Schedule</a>
+      <a href="#"><span class="pdf">PDF</span> Academic Calendar</a>
+    </div>
+  </div>
 </div></section>
 
 <!-- what's new -->
