@@ -149,15 +149,15 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .trio .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem}
 /* card fills teal on hover, text turns white, the corner flag turns yellow (like the reference) */
 .ncard{position:relative;display:block;background:var(--tint);border:1px solid var(--line);border-radius:10px;padding:2.2rem 1.7rem 3.4rem;min-height:210px;overflow:hidden;transition:background .35s ease,transform .25s ease,box-shadow .25s ease}
-.ncard:hover{background:var(--teal);transform:translateY(-4px);box-shadow:var(--shadow)}
+.ncard:hover,.ncard.touched{background:var(--teal);transform:translateY(-4px);box-shadow:var(--shadow)}
 .ncard::before{content:"";position:absolute;top:0;left:0;width:0;height:0;border-top:46px solid var(--teal);border-right:46px solid transparent;transition:border-top-color .35s ease}
-.ncard:hover::before{border-top-color:var(--yellow)}
+.ncard:hover::before,.ncard.touched::before{border-top-color:var(--yellow)}
 .ncard h3{font-size:1.5rem;color:var(--ink);margin-bottom:.5rem;transition:color .35s ease}
 .ncard p{font-size:.95rem;color:var(--muted);max-width:26ch;transition:color .35s ease}
 .ncard .no{position:absolute;right:1.4rem;bottom:1rem;display:flex;align-items:center;gap:.25rem;font-family:var(--display);font-weight:700;font-size:2.3rem;color:var(--teal);line-height:1;transition:color .35s ease}
 .ncard .no svg{width:24px;height:24px}
 .ncard .more{position:absolute;left:1.7rem;bottom:1.5rem;color:var(--teal);font-weight:700;font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;transition:color .35s ease}
-.ncard:hover h3,.ncard:hover p,.ncard:hover .no,.ncard:hover .more{color:#fff}
+.ncard:hover h3,.ncard:hover p,.ncard:hover .no,.ncard:hover .more,.ncard.touched h3,.ncard.touched p,.ncard.touched .no,.ncard.touched .more{color:#fff}
 /* reveal: slide down from above, staggered one after another */
 .revtop.pre{opacity:0;transform:translateY(-32px)}
 .trio .grid .rev:nth-child(2).in{transition-delay:.12s}
@@ -498,6 +498,13 @@ footer{background:var(--paper);border-top:1px solid var(--line)}
   }
   if(reduce||!('IntersectionObserver' in window)){document.querySelectorAll('#counts .n').forEach(function(el){el.textContent=(el.getAttribute('data-pre')||'')+el.getAttribute('data-to')+(el.getAttribute('data-suf')||'')});}
   else{var io2=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)run()})},{threshold:.4});io2.observe(band);}
+
+  // placeholder links must not jump the page to the top (real pages come with the Next.js build)
+  document.addEventListener('click',function(e){var a=e.target.closest('a[href="#"]');if(a)e.preventDefault();});
+
+  // Mission/Goals/Team cards: on a phone there's no hover, so a tap shows the teal state
+  var cards=[].slice.call(document.querySelectorAll('.trio .ncard'));
+  cards.forEach(function(c){c.addEventListener('click',function(){var on=c.classList.contains('touched');cards.forEach(function(x){x.classList.remove('touched')});if(!on)c.classList.add('touched');});});
 
   // forms (static preview)
   document.getElementById('nl').onsubmit=function(e){e.preventDefault();document.getElementById('nlok').hidden=false;e.target.reset()};
