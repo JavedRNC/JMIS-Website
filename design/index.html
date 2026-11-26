@@ -147,14 +147,21 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 /* ---- numbered cards (Mission/Goals/Team) ---- */
 .trio{background:var(--soft);background-image:radial-gradient(circle at 20% 10%,rgba(10,142,121,.05),transparent 40%)}
 .trio .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem}
-.ncard{position:relative;background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:2.4rem 1.6rem 1.8rem;box-shadow:var(--shadow);overflow:hidden;transition:transform .2s}
-.ncard:hover{transform:translateY(-6px)}
-.ncard::before{content:"";position:absolute;top:0;left:0;width:120px;height:52px;background:var(--teal);clip-path:polygon(0 0,100% 0,0 100%);opacity:.14}
-.ncard .no{position:absolute;top:1rem;right:1.2rem;font-family:var(--display);font-weight:700;font-size:2.4rem;color:var(--teal);opacity:.22}
-.ncard .ic{width:56px;height:56px;border-radius:50%;background:var(--tint);color:var(--teal);display:grid;place-items:center;margin-bottom:1rem}
-.ncard h3{font-size:1.4rem;margin-bottom:.5rem}
-.ncard p{font-size:.95rem;margin-bottom:1rem}
-.ncard .more{color:var(--teal);font-weight:700;font-size:.82rem;letter-spacing:.06em;text-transform:uppercase}
+/* card fills teal on hover, text turns white, the corner flag turns yellow (like the reference) */
+.ncard{position:relative;display:block;background:var(--tint);border:1px solid var(--line);border-radius:10px;padding:2.2rem 1.7rem 3.4rem;min-height:210px;overflow:hidden;transition:background .35s ease,transform .25s ease,box-shadow .25s ease}
+.ncard:hover{background:var(--teal);transform:translateY(-4px);box-shadow:var(--shadow)}
+.ncard::before{content:"";position:absolute;top:0;left:0;width:0;height:0;border-top:46px solid var(--teal);border-right:46px solid transparent;transition:border-top-color .35s ease}
+.ncard:hover::before{border-top-color:var(--yellow)}
+.ncard h3{font-size:1.5rem;color:var(--ink);margin-bottom:.5rem;transition:color .35s ease}
+.ncard p{font-size:.95rem;color:var(--muted);max-width:26ch;transition:color .35s ease}
+.ncard .no{position:absolute;right:1.4rem;bottom:1rem;display:flex;align-items:center;gap:.25rem;font-family:var(--display);font-weight:700;font-size:2.3rem;color:var(--teal);line-height:1;transition:color .35s ease}
+.ncard .no svg{width:24px;height:24px}
+.ncard .more{position:absolute;left:1.7rem;bottom:1.5rem;color:var(--teal);font-weight:700;font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;transition:color .35s ease}
+.ncard:hover h3,.ncard:hover p,.ncard:hover .no,.ncard:hover .more{color:#fff}
+/* reveal: slide down from above, staggered one after another */
+.revtop.pre{opacity:0;transform:translateY(-32px)}
+.trio .grid .rev:nth-child(2).in{transition-delay:.12s}
+.trio .grid .rev:nth-child(3).in{transition-delay:.24s}
 
 /* ---- difference counters ---- */
 .diff{background:linear-gradient(135deg,var(--teal-ink),var(--teal-d));color:#fff;position:relative;overflow:hidden}
@@ -359,9 +366,9 @@ footer{background:var(--paper);border-top:1px solid var(--line)}
 <!-- numbered trio -->
 <section class="band trio"><div class="wrap">
   <div class="grid">
-    <div class="ncard rev"><span class="no">01</span><div class="ic">📖</div><h3>Our Mission</h3><p>To provide quality education that unites academic excellence, Islamic values and strong character.</p><a class="more" href="#">Learn More →</a></div>
-    <div class="ncard rev"><span class="no">02</span><div class="ic">🎯</div><h3>Our Goals</h3><p>Confident, capable students who contribute to society and carry their faith with understanding.</p><a class="more" href="#">Learn More →</a></div>
-    <div class="ncard rev"><span class="no">03</span><div class="ic">👥</div><h3>Our Team</h3><p>Qualified, caring teachers and staff devoted to every child's growth, inside and outside the classroom.</p><a class="more" href="#">Learn More →</a></div>
+    <a class="ncard rev revtop" href="#"><h3>Our Mission</h3><p>To provide quality education that unites academic excellence, Islamic values and strong character.</p><span class="more">Learn More →</span><span class="no">01<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 6c-2-1.3-4.3-1.3-6.5 0V17c2.2-1.3 4.5-1.3 6.5 0m0-11c2-1.3 4.3-1.3 6.5 0V17c-2.2-1.3-4.5-1.3-6.5 0m0-11v11"/></svg></span></a>
+    <a class="ncard rev revtop" href="#"><h3>Our Goals</h3><p>Confident, capable students who contribute to society and carry their faith with understanding.</p><span class="more">Learn More →</span><span class="no">02<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 6c-2-1.3-4.3-1.3-6.5 0V17c2.2-1.3 4.5-1.3 6.5 0m0-11c2-1.3 4.3-1.3 6.5 0V17c-2.2-1.3-4.5-1.3-6.5 0m0-11v11"/></svg></span></a>
+    <a class="ncard rev revtop" href="#"><h3>Our Team</h3><p>Qualified, caring teachers and staff devoted to every child's growth, inside and outside the classroom.</p><span class="more">Learn More →</span><span class="no">03<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 6c-2-1.3-4.3-1.3-6.5 0V17c2.2-1.3 4.5-1.3 6.5 0m0-11c2-1.3 4.3-1.3 6.5 0V17c-2.2-1.3-4.5-1.3-6.5 0m0-11v11"/></svg></span></a>
   </div>
 </div></section>
 
